@@ -106,6 +106,14 @@
     }
 }
 
+- (void)setImageGap:(CGFloat)imageGap {
+    _imageGap = imageGap;
+    
+    for (UIButton *btn in self.btnList) {
+        btn.imageEdgeInsets = UIEdgeInsetsMake(imageGap, 0, imageGap, 0);
+    }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

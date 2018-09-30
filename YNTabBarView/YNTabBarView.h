@@ -12,6 +12,9 @@
 
 @property (nonatomic, assign) NSInteger selectIndex;
 
+// set button imageInsets
+@property (nonatomic, assign) CGFloat imageGap;
+
 @property (nonatomic, strong) NSArray *unSelectImgList;
 
 @property (nonatomic, strong) NSArray *selectImgList;

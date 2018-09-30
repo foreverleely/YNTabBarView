@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		38D63D2A9D4B7F89181B0150 /* libPods-TabBarViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CCCBB26BC272CA392E6602 /* libPods-TabBarViewDemo.a */; };
+		B4842D622160B61A009BB5E5 /* YNTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4842D602160B61A009BB5E5 /* YNTabBarView.m */; };
 		B4F6040A2159DFE000633D8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F604092159DFE000633D8A /* AppDelegate.m */; };
 		B4F6040D2159DFE000633D8A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F6040C2159DFE000633D8A /* ViewController.m */; };
 		B4F604102159DFE000633D8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4F6040E2159DFE000633D8A /* Main.storyboard */; };
@@ -16,7 +17,6 @@
 		B4F604182159DFE100633D8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F604172159DFE100633D8A /* main.m */; };
 		B4F604222159DFE100633D8A /* TabBarViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F604212159DFE100633D8A /* TabBarViewDemoTests.m */; };
 		B4F6042D2159DFE100633D8A /* TabBarViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F6042C2159DFE100633D8A /* TabBarViewDemoUITests.m */; };
-		B4F604402159E04000633D8A /* YNTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F6043E2159E04000633D8A /* YNTabBarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +39,8 @@
 /* Begin PBXFileReference section */
 		81257E897062B14466F3EA4F /* Pods-TabBarViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabBarViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TabBarViewDemo/Pods-TabBarViewDemo.release.xcconfig"; sourceTree = "<group>"; };
 		A58831841565463013335938 /* Pods-TabBarViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabBarViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TabBarViewDemo/Pods-TabBarViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		B4842D602160B61A009BB5E5 /* YNTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YNTabBarView.m; path = ../../YNTabBarView/YNTabBarView.m; sourceTree = "<group>"; };
+		B4842D612160B61A009BB5E5 /* YNTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YNTabBarView.h; path = ../../YNTabBarView/YNTabBarView.h; sourceTree = "<group>"; };
 		B4F604052159DFE000633D8A /* TabBarViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabBarViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F604082159DFE000633D8A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B4F604092159DFE000633D8A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -55,8 +57,6 @@
 		B4F604282159DFE100633D8A /* TabBarViewDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TabBarViewDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F6042C2159DFE100633D8A /* TabBarViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarViewDemoUITests.m; sourceTree = "<group>"; };
 		B4F6042E2159DFE100633D8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4F6043E2159E04000633D8A /* YNTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YNTabBarView.m; sourceTree = "<group>"; };
-		B4F6043F2159E04000633D8A /* YNTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YNTabBarView.h; sourceTree = "<group>"; };
 		C4CCCBB26BC272CA392E6602 /* libPods-TabBarViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TabBarViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,7 +128,8 @@
 		B4F604072159DFE000633D8A /* TabBarViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B4F6043D2159E04000633D8A /* TabBarView */,
+				B4842D612160B61A009BB5E5 /* YNTabBarView.h */,
+				B4842D602160B61A009BB5E5 /* YNTabBarView.m */,
 				B4F604082159DFE000633D8A /* AppDelegate.h */,
 				B4F604092159DFE000633D8A /* AppDelegate.m */,
 				B4F6040B2159DFE000633D8A /* ViewController.h */,
@@ -158,15 +159,6 @@
 				B4F6042E2159DFE100633D8A /* Info.plist */,
 			);
 			path = TabBarViewDemoUITests;
-			sourceTree = "<group>";
-		};
-		B4F6043D2159E04000633D8A /* TabBarView */ = {
-			isa = PBXGroup;
-			children = (
-				B4F6043F2159E04000633D8A /* YNTabBarView.h */,
-				B4F6043E2159E04000633D8A /* YNTabBarView.m */,
-			);
-			path = TabBarView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,10 +313,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4F604402159E04000633D8A /* YNTabBarView.m in Sources */,
 				B4F6040D2159DFE000633D8A /* ViewController.m in Sources */,
 				B4F604182159DFE100633D8A /* main.m in Sources */,
 				B4F6040A2159DFE000633D8A /* AppDelegate.m in Sources */,
+				B4842D622160B61A009BB5E5 /* YNTabBarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
