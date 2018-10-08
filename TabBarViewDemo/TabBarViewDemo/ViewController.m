@@ -29,6 +29,7 @@
                               @"icon_tabbar_3_1",
                               @"icon_tabbar_4_1"];
     YNTabBarView *tabbarView = [[YNTabBarView alloc] initWithSelectList:selectList unSelectList:unSelectList];
+    tabbarView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:tabbarView];
     [tabbarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(self.view);

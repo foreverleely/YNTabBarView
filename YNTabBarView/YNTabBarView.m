@@ -13,6 +13,17 @@
 #ifndef SCREEN_WIDTH
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #endif
+#ifndef SCREEN_HEIGHT
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+#endif
+
+#ifndef TARGETED_DEVICE_IS_IPHONE
+#define TARGETED_DEVICE_IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#endif
+
+#ifndef TARGETED_DEVICE_IS_IPHONE_X
+#define TARGETED_DEVICE_IS_IPHONE_X (TARGETED_DEVICE_IS_IPHONE && (SCREEN_HEIGHT == 812 || SCREEN_HEIGHT == 896))
+#endif
 
 @interface YNTabBarView()
 
@@ -53,6 +64,10 @@
             [btn setImage:unSelectImg forState:UIControlStateNormal];
             UIImage *selectImg = [UIImage imageNamed:selectList[i]];
             [btn setImage:selectImg forState:UIControlStateSelected];
+            
+            if (TARGETED_DEVICE_IS_IPHONE_X) {
+                [btn setImageEdgeInsets:UIEdgeInsetsMake(-25, 0, 0, 0)];
+            }
             
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = i;
