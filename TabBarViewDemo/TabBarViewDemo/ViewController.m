@@ -11,6 +11,16 @@
 // pod
 #import "Masonry.h"
 
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
+#define TARGETED_DEVICE_IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
+#define TARGETED_DEVICE_IS_IPHONE_X (TARGETED_DEVICE_IS_IPHONE && (SCREEN_HEIGHT == 812 || SCREEN_HEIGHT == 896))
+
+#define DeviceTabbarHeight    (TARGETED_DEVICE_IS_IPHONE_X ? 83 : 49)
+
 @interface ViewController ()
 
 @end
@@ -20,20 +30,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSArray *titleList = @[@"tab0",
+                           @"tab1",
+                           @"tab2",
+                           @"tab3"];
     NSArray *selectList   = @[@"icon_tabbar_1",
                               @"icon_tabbar_2",
                               @"icon_tabbar_3",
                               @"icon_tabbar_4"];
-    NSArray *unSelectList = @[@"icon_tabbar_1_1",
-                              @"icon_tabbar_2_1",
-                              @"icon_tabbar_3_1",
-                              @"icon_tabbar_4_1"];
-    YNTabBarView *tabbarView = [[YNTabBarView alloc] initWithSelectList:selectList unSelectList:unSelectList];
-    tabbarView.backgroundColor = [UIColor lightGrayColor];
+    CGFloat viewWidth = 300.f;
+    CGFloat btnWidth = viewWidth/selectList.count;
+//    YNTabBarView *tabbarView = [[YNTabBarView alloc] initWithSelectList:selectList unSelectList:unSelectList andBtnWidth:btnWidth];
+    YNTabBarView *tabbarView = [[YNTabBarView alloc] initWithTitles:titleList
+                                                             Images:selectList
+                                                        SelectColor:[UIColor yellowColor]
+                                                      UnSelectColor:[UIColor lightGrayColor]
+                                                        AndBtnWidth:btnWidth];
+//    tabbarView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:tabbarView];
     [tabbarView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.mas_equalTo(self.view);
-        make.height.mas_equalTo(64);
+        make.centerX.bottom.mas_equalTo(self.view);
+        make.width.mas_equalTo(viewWidth);
+        make.height.mas_equalTo(DeviceTabbarHeight);
     }];
 }
 

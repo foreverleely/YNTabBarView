@@ -15,14 +15,17 @@
 // set button imageInsets
 @property (nonatomic, assign) CGFloat imageGap;
 
-@property (nonatomic, strong) NSArray *unSelectImgList;
-
-@property (nonatomic, strong) NSArray *selectImgList;
-
 @property (nonatomic, copy) void (^selectItem)(NSInteger index);
 
+- (instancetype)initWithImages:(NSArray *)images
+                   SelectColor:(UIColor *)selectColor
+                 UnSelectColor:(UIColor *)unSelectColor
+                   AndBtnWidth:(CGFloat)btnWidth;
 
-- (instancetype)initWithSelectList:(NSArray *)selectList
-                      unSelectList:(NSArray *)unselectList;
+- (instancetype)initWithTitles:(NSArray *)titles
+                        Images:(NSArray *)images
+                   SelectColor:(UIColor *)selectColor
+                 UnSelectColor:(UIColor *)unSelectColor
+                   AndBtnWidth:(CGFloat)btnWidth;
 
 @end

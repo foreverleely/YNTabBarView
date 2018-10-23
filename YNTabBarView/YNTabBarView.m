@@ -6,24 +6,43 @@
 //  Copyright © 2018年 makeupopular.com. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+@interface UIImage (YNColor)
+
++ (UIImage *)yn_imageNamed:(NSString *)name withTintColor:(UIColor *)color;
+
+@end
+
+@implementation UIImage (YNColor)
+
++ (UIImage *)yn_imageNamed:(NSString *)name withTintColor:(UIColor *)color {
+    
+    UIImage *img = [[UIImage imageNamed:name] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIGraphicsBeginImageContextWithOptions(img.size, NO, img.scale);
+    [color set];
+    [img drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
+@end
+
 #import "YNTabBarView.h"
 // pod
 #import "Masonry.h"
 
-#ifndef SCREEN_WIDTH
+
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
-#endif
-#ifndef SCREEN_HEIGHT
+
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
-#endif
 
-#ifndef TARGETED_DEVICE_IS_IPHONE
 #define TARGETED_DEVICE_IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-#endif
 
-#ifndef TARGETED_DEVICE_IS_IPHONE_X
 #define TARGETED_DEVICE_IS_IPHONE_X (TARGETED_DEVICE_IS_IPHONE && (SCREEN_HEIGHT == 812 || SCREEN_HEIGHT == 896))
-#endif
+
+#define DeviceTabbarHeight    (TARGETED_DEVICE_IS_IPHONE_X ? 83 : 49)
 
 @interface YNTabBarView()
 
@@ -42,32 +61,74 @@
     return self;
 }
 
-- (instancetype)initWithSelectList:(NSArray *)selectList
-                      unSelectList:(NSArray *)unselectList {
+- (instancetype)initWithImages:(NSArray *)images
+                   SelectColor:(UIColor *)selectColor
+                 UnSelectColor:(UIColor *)unSelectColor
+                   AndBtnWidth:(CGFloat)btnWidth {
+    return [self initWithTitles:nil Images:images SelectColor:selectColor UnSelectColor:unSelectColor AndBtnWidth:btnWidth];
+}
+
+- (instancetype)initWithTitles:(nullable NSArray *)titles
+                        Images:(NSArray *)images
+                   SelectColor:(UIColor *)selectColor
+                 UnSelectColor:(UIColor *)unSelectColor
+                   AndBtnWidth:(CGFloat)btnWidth {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.btnList = [NSMutableArray new];
-        [self configSubViewsWithSelectList:selectList unSelectList:unselectList];
+        [self configSubViewsWithTitles:titles Images:images SelectColor:selectColor UnSelectColor:unSelectColor AndBtnWidth:btnWidth];
     }
     return self;
 }
 
-- (void)configSubViewsWithSelectList:(NSArray *)selectList
-                        unSelectList:(NSArray *)unselectList {
+- (void)configSubViewsWithTitles:(NSArray *)titles
+                          Images:(NSArray *)images
+                     SelectColor:(UIColor *)selectColor
+                   UnSelectColor:(UIColor *)unSelectColor
+                     AndBtnWidth:(CGFloat)btnWidth {
     
-    if (selectList.count > 0 && selectList.count == unselectList.count) {
+    if (images && images.count > 0) {
         
-        for (NSInteger i = 0; i < selectList.count; i++) {
+        BOOL isTitleExist = titles && titles.count == images.count;
+        
+        for (NSInteger i = 0; i < images.count; i++) {
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            UIImage *unSelectImg = [UIImage imageNamed:unselectList[i]];
-            [btn setImage:unSelectImg forState:UIControlStateNormal];
-            UIImage *selectImg = [UIImage imageNamed:selectList[i]];
-            [btn setImage:selectImg forState:UIControlStateSelected];
+            [self addSubview:btn];
+            btn.frame = CGRectMake(btnWidth * i, 0, btnWidth, DeviceTabbarHeight);
             
-            if (TARGETED_DEVICE_IS_IPHONE_X) {
-                [btn setImageEdgeInsets:UIEdgeInsetsMake(-25, 0, 0, 0)];
+            [btn setImage:[UIImage yn_imageNamed:images[i] withTintColor:selectColor] forState:UIControlStateSelected];
+            [btn setImage:[UIImage yn_imageNamed:images[i] withTintColor:unSelectColor] forState:UIControlStateNormal];
+            
+            btn.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            
+            CGFloat imgWidth = btn.imageView.frame.size.width;
+            CGFloat imgHeight = btn.imageView.frame.size.height;
+            
+            if (isTitleExist) {
+                [btn setTitle:titles[i] forState:UIControlStateNormal];
+                [btn setTitleColor:selectColor forState:UIControlStateSelected];
+                [btn setTitleColor:unSelectColor forState:UIControlStateNormal];
+                btn.titleLabel.font = [UIFont fontWithName:@"Nunito-SemiBold" size:10];
+
+                [btn.titleLabel sizeToFit];
+                CGFloat labelWidth = btn.titleLabel.frame.size.width;
+//                CGFloat labelHeight = btn.titleLabel.frame.size.height;
+                
+                CGFloat ltop = DeviceTabbarHeight/2;
+                CGFloat lleft = (btnWidth - labelWidth)/2 - imgWidth;
+
+                btn.titleEdgeInsets = UIEdgeInsetsMake(ltop, lleft, -ltop, -lleft);
             }
+
+            CGFloat itop = (DeviceTabbarHeight - imgHeight)/2;
+            if (isTitleExist) {
+                itop = DeviceTabbarHeight/2 - imgHeight - 10;
+            }
+            CGFloat ileft = (btnWidth - imgWidth)/2;
+            
+            btn.imageEdgeInsets = UIEdgeInsetsMake(itop, ileft, -itop, -ileft);
             
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = i;
@@ -75,16 +136,6 @@
             if (i == 0) {
                 btn.selected = YES;
             }
-            
-            CGFloat btnWidth = SCREEN_WIDTH/4;
-            CGFloat offsetX = btnWidth * i;
-            
-            [self addSubview:btn];
-            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.mas_equalTo(self);
-                make.left.mas_equalTo(offsetX);
-                make.width.mas_equalTo(btnWidth);
-            }];
             
             [self.btnList addObject:btn];
         }
