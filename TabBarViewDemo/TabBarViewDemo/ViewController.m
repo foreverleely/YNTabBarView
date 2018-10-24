@@ -45,6 +45,7 @@
                                                              Images:selectList
                                                         SelectColor:[UIColor yellowColor]
                                                       UnSelectColor:[UIColor lightGrayColor]
+                                                          titleFont:[UIFont systemFontOfSize:6]
                                                         AndBtnWidth:btnWidth];
 //    tabbarView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:tabbarView];

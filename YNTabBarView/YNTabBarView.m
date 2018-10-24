@@ -73,18 +73,28 @@
                    SelectColor:(UIColor *)selectColor
                  UnSelectColor:(UIColor *)unSelectColor
                    AndBtnWidth:(CGFloat)btnWidth {
+    return [self initWithTitles:titles Images:images SelectColor:selectColor UnSelectColor:unSelectColor titleFont:nil AndBtnWidth:btnWidth];
+}
+
+- (instancetype)initWithTitles:(nullable NSArray *)titles
+                        Images:(NSArray *)images
+                   SelectColor:(UIColor *)selectColor
+                 UnSelectColor:(UIColor *)unSelectColor
+                     titleFont:(nullable UIFont *)titlefont
+                   AndBtnWidth:(CGFloat)btnWidth {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.btnList = [NSMutableArray new];
-        [self configSubViewsWithTitles:titles Images:images SelectColor:selectColor UnSelectColor:unSelectColor AndBtnWidth:btnWidth];
+        [self configSubViewsWithTitles:titles Images:images SelectColor:selectColor UnSelectColor:unSelectColor titleFont:titlefont AndBtnWidth:btnWidth];
     }
     return self;
 }
 
-- (void)configSubViewsWithTitles:(NSArray *)titles
+- (void)configSubViewsWithTitles:(nullable NSArray *)titles
                           Images:(NSArray *)images
                      SelectColor:(UIColor *)selectColor
                    UnSelectColor:(UIColor *)unSelectColor
+                       titleFont:(nullable UIFont *)titlefont
                      AndBtnWidth:(CGFloat)btnWidth {
     
     if (images && images.count > 0) {
@@ -111,17 +121,21 @@
                 [btn setTitleColor:selectColor forState:UIControlStateSelected];
                 [btn setTitleColor:unSelectColor forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont fontWithName:@"Nunito-SemiBold" size:10];
-
+                
+                if (titlefont) {
+                    btn.titleLabel.font = titlefont;
+                }
+                
                 [btn.titleLabel sizeToFit];
                 CGFloat labelWidth = btn.titleLabel.frame.size.width;
-//                CGFloat labelHeight = btn.titleLabel.frame.size.height;
+                //                CGFloat labelHeight = btn.titleLabel.frame.size.height;
                 
-                CGFloat ltop = DeviceTabbarHeight/2;
+                CGFloat ltop = DeviceTabbarHeight/2 - 10;
                 CGFloat lleft = (btnWidth - labelWidth)/2 - imgWidth;
-
+                
                 btn.titleEdgeInsets = UIEdgeInsetsMake(ltop, lleft, -ltop, -lleft);
             }
-
+            
             CGFloat itop = (DeviceTabbarHeight - imgHeight)/2;
             if (isTitleExist) {
                 itop = DeviceTabbarHeight/2 - imgHeight - 10;

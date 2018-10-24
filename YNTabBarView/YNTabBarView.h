@@ -22,10 +22,17 @@
                  UnSelectColor:(UIColor *)unSelectColor
                    AndBtnWidth:(CGFloat)btnWidth;
 
-- (instancetype)initWithTitles:(NSArray *)titles
+- (instancetype)initWithTitles:(nullable NSArray *)titles
                         Images:(NSArray *)images
                    SelectColor:(UIColor *)selectColor
                  UnSelectColor:(UIColor *)unSelectColor
+                   AndBtnWidth:(CGFloat)btnWidth;
+
+- (instancetype)initWithTitles:(nullable NSArray *)titles
+                        Images:(NSArray *)images
+                   SelectColor:(UIColor *)selectColor
+                 UnSelectColor:(UIColor *)unSelectColor
+                     titleFont:(nullable UIFont *)titlefont
                    AndBtnWidth:(CGFloat)btnWidth;
 
 @end
